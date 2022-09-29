@@ -313,6 +313,28 @@ function init() {
     var modal = document.createElement("div");
     var button_link = document.createElement("a");
 
+    let longitudIzquierda = 0.0;
+    let longitudDerecha = 0.0;
+    let longitudFondo = 0.0;
+    let longitudFrente = 0.0;
+    hotspot.izquierda.forEach(value => {
+      longitudIzquierda += value;
+      longitudIzquierda = Math.round(longitudIzquierda * 100) / 100;
+    });
+    hotspot.derecha.forEach(value => {
+      longitudDerecha += value;
+      longitudDerecha = Math.round(longitudDerecha * 100) / 100;
+    });
+    hotspot.fondo.forEach(value => {
+      longitudFondo += value;
+      longitudFondo = Math.round(longitudFondo * 100) / 100;
+    });
+    hotspot.frente.forEach(value => {
+      longitudFrente += value;
+      longitudFrente = Math.round(longitudFrente * 100) / 100;
+    });
+    let perimetro = longitudIzquierda + longitudDerecha + longitudFondo + longitudFrente;
+
     switch (hotspot.estado) {
     case "disponible":
       //
@@ -355,27 +377,7 @@ function init() {
       perimetro_title.innerHTML = "Perímetro";
       var perimetro_text = document.createElement("p");
 
-      let longitudIzquierda = 0.0;
-      let longitudDerecha = 0.0;
-      let longitudFondo = 0.0;
-      let longitudFrente = 0.0;
-      hotspot.izquierda.forEach(value => {
-        longitudIzquierda += value;
-        longitudIzquierda = Math.round(longitudIzquierda * 100) / 100;
-      });
-      hotspot.derecha.forEach(value => {
-        longitudDerecha += value;
-        longitudDerecha = Math.round(longitudDerecha * 100) / 100;
-      });
-      hotspot.fondo.forEach(value => {
-        longitudFondo += value;
-        longitudFondo = Math.round(longitudFondo * 100) / 100;
-      });
-      hotspot.frente.forEach(value => {
-        longitudFrente += value;
-        longitudFrente = Math.round(longitudFrente * 100) / 100;
-      });
-      let perimetro = longitudIzquierda + longitudDerecha + longitudFondo + longitudFrente;
+      
       perimetro = Math.round(perimetro);
       perimetro_text.innerHTML = `${perimetro} ml`;
       wrapper_perimetro.appendChild(perimetro_title);
@@ -570,7 +572,7 @@ function init() {
       perimetro_title.innerHTML = "Perímetro";
       var perimetro_text = document.createElement("p");
       perimetro_text.classList.add("text-right");
-      perimetro_text.innerHTML = `${hotspot.perimetro} ml`;
+      perimetro_text.innerHTML = `${perimetro} ml`;
       wrapper_perimetro_reservado.appendChild(perimetro_title);
       wrapper_perimetro_reservado.appendChild(perimetro_text);
 
