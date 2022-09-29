@@ -18,7 +18,8 @@
 var DataDB;
 async function loadData() {
   const res = await fetch(
-    "https://fbase-lienzo-anden-default-rtdb.firebaseio.com/data.json"
+    "https://fbase-lienzo-anden-default-rtdb.firebaseio.com/data-test.json"
+    
   );
   DataDB = await res.json();
   DataDB.linkHotspots = [];
