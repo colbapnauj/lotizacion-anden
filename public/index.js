@@ -621,7 +621,7 @@ function init() {
 
 
       window.open(
-        `https://wa.me/${data.infoContacto.phoneNumber}?text=${message}`
+        `https://wa.me/51${data.infoContacto.phoneNumber}?text=${message}`
       );
     };
 
