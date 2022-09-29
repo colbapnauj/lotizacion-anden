@@ -99,12 +99,6 @@ function init() {
       pinFirstLevel: true
     });
 
-    // Create link hotspots.
-    // data.linkHotspots.forEach(function(hotspot) {
-    //   var element = createLinkHotspotElement(hotspot);
-    //   scene.hotspotContainer().createHotspot(element, { yaw: hotspot.yaw, pitch: hotspot.pitch });
-    // });
-
     // Create info hotspots.
     data.infoHotspots.forEach(function(hotspot) {
       var element = createModal(hotspot);
@@ -129,7 +123,7 @@ function init() {
   }
 
   // Set handler for autorotate toggle.
-  // autorotateToggleElement.addEventListener('click', toggleAutorotate);
+  autorotateToggleElement.addEventListener('click', toggleAutorotate);
 
   // Set up fullscreen mode, if supported.
   if (screenfull.enabled && data.settings.fullscreenButton) {
@@ -255,46 +249,6 @@ function init() {
     }
   }
 
-  function createLinkHotspotElement(hotspot) {
-
-    // Create wrapper element to hold icon and tooltip.
-    var wrapper = document.createElement('div');
-    wrapper.classList.add('hotspot');
-    wrapper.classList.add('link-hotspot');
-
-    // Create image element.
-    var icon = document.createElement('img');
-    icon.src = 'img/link.png';
-    icon.classList.add('link-hotspot-icon');
-
-    // Set rotation transform.
-    var transformProperties = [ '-ms-transform', '-webkit-transform', 'transform' ];
-    for (var i = 0; i < transformProperties.length; i++) {
-      var property = transformProperties[i];
-      icon.style[property] = 'rotate(' + hotspot.rotation + 'rad)';
-    }
-
-    // Add click event handler.
-    wrapper.addEventListener('click', function() {
-      switchScene(findSceneById(hotspot.target));
-    });
-
-    // Prevent touch and scroll events from reaching the parent element.
-    // This prevents the view control logic from interfering with the hotspot.
-    stopTouchAndScrollEventPropagation(wrapper);
-
-    // Create tooltip element.
-    var tooltip = document.createElement('div');
-    tooltip.classList.add('hotspot-tooltip');
-    tooltip.classList.add('link-hotspot-tooltip');
-    tooltip.innerHTML = findSceneDataById(hotspot.target).name;
-
-    wrapper.appendChild(icon);
-    wrapper.appendChild(tooltip);
-
-    return wrapper;
-  }
-
   function createModal(hotspot) {
 
     // Create wrapper element to hold icon and tooltip.
@@ -302,17 +256,11 @@ function init() {
     wrapper.classList.add("hotspot");
     wrapper.classList.add("info-hotspot");
 
-    // Create hotspot/tooltip header.
-    // var header = document.createElement("div");
-    // header.classList.add("info-hotspot-header");
-
     // Create image element.
     var iconWrapper = document.createElement("div");
     iconWrapper.classList.add("info-hotspot-icon-wrapper");
     var icon = document.createElement("img");
-    // var nameLote = document.createElement("span");
-    // nameLote.classList.add("info-hotspot-icon");
-    // nameLote.innerHTML = `${hotspot.manzana}-${hotspot.lote}`;
+
     try {
       icon.src = `img/icons/manzanas/${hotspot.manzana.toLowerCase()}/${hotspot.manzana.toLowerCase()}-${
         hotspot.lote
@@ -412,15 +360,19 @@ function init() {
       let longitudFrente = 0.0;
       hotspot.izquierda.forEach(value => {
         longitudIzquierda += value;
+        longitudIzquierda = Math.round(longitudIzquierda * 100) / 100;
       });
       hotspot.derecha.forEach(value => {
         longitudDerecha += value;
+        longitudDerecha = Math.round(longitudDerecha * 100) / 100;
       });
       hotspot.fondo.forEach(value => {
         longitudFondo += value;
+        longitudFondo = Math.round(longitudFondo * 100) / 100;
       });
       hotspot.frente.forEach(value => {
         longitudFrente += value;
+        longitudFrente = Math.round(longitudFrente * 100) / 100;
       });
       let perimetro = longitudIzquierda + longitudDerecha + longitudFondo + longitudFrente;
       perimetro = Math.round(perimetro);
@@ -452,12 +404,12 @@ function init() {
       var wrapper_text2 = document.createElement("div");
       wrapper_text2.classList.add("col2_text2");
       var text_fondo = document.createElement("p");
-      text_fondo.innerHTML = `Fondo ${hotspot.fondo} m`;
+      text_fondo.innerHTML = `Fondo ${longitudFondo} m`;
       var img_lote = document.createElement("img");
       let manzana = hotspot.manzana.toLowerCase();
       img_lote.src = `img/land-shape/${manzana}/${manzana}${hotspot.lote}.svg`;
       var text_frente = document.createElement("p");
-      text_frente.innerHTML = `Frente ${hotspot.frente} m`;
+      text_frente.innerHTML = `Frente ${longitudFrente} m`;
       wrapper_text2.appendChild(text_fondo);
       wrapper_text2.appendChild(img_lote);
       wrapper_text2.appendChild(text_frente);
@@ -465,7 +417,7 @@ function init() {
       var wrapper_text3 = document.createElement("div");
       wrapper_text3.classList.add("col2_text3");
       var text_derecha = document.createElement("p");
-      text_derecha.innerHTML = `Derecha ${hotspot.derecha} m`;
+      text_derecha.innerHTML = `Derecha ${longitudDerecha} m`;
       wrapper_text3.appendChild(text_derecha);
 
       col2.appendChild(wrapper_text1);
