@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "fbase-lienzo-anden"
-  }
+  },
+  "targets": {
+    "fbase-lienzo-anden": {
+      "hosting": {
+        "app": [
+          "public"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
