@@ -18,7 +18,7 @@
 var DataDB;
 async function loadData() {
   const res = await fetch(
-    "https://fbase-lienzo-anden-default-rtdb.firebaseio.com/data-test.json"
+    "https://fbase-lienzo-anden-default-rtdb.firebaseio.com/data.json"
     
   );
   DataDB = await res.json();
