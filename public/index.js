@@ -313,26 +313,11 @@ function init() {
     var modal = document.createElement("div");
     var button_link = document.createElement("a");
 
-    let longitudIzquierda = 0.0;
-    let longitudDerecha = 0.0;
-    let longitudFondo = 0.0;
-    let longitudFrente = 0.0;
-    hotspot.izquierda.forEach(value => {
-      longitudIzquierda += value;
-      longitudIzquierda = Math.round(longitudIzquierda * 100) / 100;
-    });
-    hotspot.derecha.forEach(value => {
-      longitudDerecha += value;
-      longitudDerecha = Math.round(longitudDerecha * 100) / 100;
-    });
-    hotspot.fondo.forEach(value => {
-      longitudFondo += value;
-      longitudFondo = Math.round(longitudFondo * 100) / 100;
-    });
-    hotspot.frente.forEach(value => {
-      longitudFrente += value;
-      longitudFrente = Math.round(longitudFrente * 100) / 100;
-    });
+    let longitudIzquierda = (hotspot.izquierda == -1) ? 0 : Math.round(hotspot.izquierda * 100) / 100;
+    let longitudDerecha = (hotspot.derecha == -1) ? 0 : Math.round(hotspot.derecha * 100) / 100;
+    let longitudFondo = (hotspot.fondo == -1) ? 0 : Math.round(hotspot.fondo * 100) / 100;
+    let longitudFrente = (hotspot.frente == -1) ? 0 : Math.round(hotspot.frente * 100) / 100;
+    
     let perimetro = longitudIzquierda + longitudDerecha + longitudFondo + longitudFrente;
 
     switch (hotspot.estado) {
@@ -401,18 +386,24 @@ function init() {
       wrapper_text1.classList.add("col2_text1");
       var text1 = document.createElement("p");
 
+      if (longitudIzquierda != 0) {
       text1.innerHTML = `Izquierda ${longitudIzquierda} m`;
-      wrapper_text1.appendChild(text1);
+      }
+        wrapper_text1.appendChild(text1);
 
       var wrapper_text2 = document.createElement("div");
       wrapper_text2.classList.add("col2_text2");
       var text_fondo = document.createElement("p");
-      text_fondo.innerHTML = `Fondo ${longitudFondo} m`;
+      if (longitudFondo != 0) {
+        text_fondo.innerHTML = `Fondo ${longitudFondo} m`;
+      }
       var img_lote = document.createElement("img");
       let manzana = hotspot.manzana.toLowerCase();
       img_lote.src = `img/land-shape/${manzana}/${manzana}${hotspot.lote}.svg`;
       var text_frente = document.createElement("p");
-      text_frente.innerHTML = `Frente ${longitudFrente} m`;
+      if (longitudFrente != 0) {
+        text_frente.innerHTML = `Frente ${longitudFrente} m`;
+      }
       wrapper_text2.appendChild(text_fondo);
       wrapper_text2.appendChild(img_lote);
       wrapper_text2.appendChild(text_frente);
@@ -420,7 +411,9 @@ function init() {
       var wrapper_text3 = document.createElement("div");
       wrapper_text3.classList.add("col2_text3");
       var text_derecha = document.createElement("p");
-      text_derecha.innerHTML = `Derecha ${longitudDerecha} m`;
+      if (longitudDerecha != 0) {
+        text_derecha.innerHTML = `Derecha ${longitudDerecha} m`;
+      }
       wrapper_text3.appendChild(text_derecha);
 
       col2.appendChild(wrapper_text1);
@@ -621,7 +614,7 @@ function init() {
 
 
       window.open(
-        `https://wa.me/51${data.infoContacto.phoneNumber}?text=${message}`
+        `https://wa.me/${data.infoContacto.codigoPais}${data.infoContacto.phoneNumber}?text=${message}`
       );
     };
 
