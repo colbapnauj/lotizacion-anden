@@ -17,12 +17,12 @@
 
 var DataDB;
 async function loadData() {
-  // const res = await fetch(
-  //   "https://fbase-lienzo-anden-default-rtdb.firebaseio.com/data.json"
+  const res = await fetch(
+    "https://fbase-lienzo-anden-default-rtdb.firebaseio.com/data.json"
     
-  // );
-  // DataDB = await res.json();
-  // DataDB.linkHotspots = [];
+  );
+  DataDB = await res.json();
+  DataDB.linkHotspots = [];
 
   init();
 }
@@ -31,8 +31,7 @@ function init() {
   var Marzipano = window.Marzipano;
   var bowser = window.bowser;
   var screenfull = window.screenfull;
-  // var data = window.DataDB;
-  var data = window.APP_DATA;
+  var data = window.DataDB;
 
   // Grab elements from DOM.
   var panoElement = document.querySelector('#pano');
