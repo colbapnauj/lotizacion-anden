@@ -8,7 +8,7 @@
 html {
     /* font-size: 62.5%; */
     font-size: 71%;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', 'monospace';
 }
 
 :root {
@@ -17,7 +17,6 @@ html {
     --gray2: #848D8D;
     --white: #fff;
     --dark: #2B2B2B;
-
     --yellow: #FCBD78;
     --red: #ED565D;
 }
@@ -215,6 +214,7 @@ main {
 
 .col2 p {
     font-size: 1.1rem;
+    font-weight: 400;
 }
 
 
