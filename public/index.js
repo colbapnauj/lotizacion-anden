@@ -17,12 +17,12 @@
 
 var DataDB;
 async function loadData() {
-  const res = await fetch(
-    "https://fbase-lienzo-anden-default-rtdb.firebaseio.com/data.json"
+  // const res = await fetch(
+  //   "https://fbase-lienzo-anden-default-rtdb.firebaseio.com/data.json"
     
-  );
-  DataDB = await res.json();
-  DataDB.linkHotspots = [];
+  // );
+  // DataDB = await res.json();
+  // DataDB.linkHotspots = [];
 
   init();
 }
@@ -31,7 +31,8 @@ function init() {
   var Marzipano = window.Marzipano;
   var bowser = window.bowser;
   var screenfull = window.screenfull;
-  var data = window.DataDB;
+  // var data = window.DataDB;
+  var data = window.APP_DATA;
 
   // Grab elements from DOM.
   var panoElement = document.querySelector('#pano');
@@ -704,6 +705,18 @@ function init() {
   
   // Display the initial scene.
   switchScene(scenes[0]);
+
+  pano.addEventListener("click", function (e) {
+    var view = viewer.view();
+    var loc = view.screenToCoordinates({ x: e.clientX, y: e.clientY });
+    console.log(view.screenToCoordinates({ x: e.clientX, y: e.clientY }));
+    console.log(`"yaw": ${loc.yaw}, "pitch": ${loc.pitch},`);
+    var coord = `"yaw": ${loc.yaw}, "pitch": ${loc.pitch},`;
+    navigator.clipboard.writeText(coord);
+
+    var _fov = viewer._currentScene._view._fov;
+    console.log(_fov);
+  });
 }
 
 loadData();
