@@ -8,7 +8,7 @@ var APP_DATA = {
   },
   "infoContacto": {
       "codigoPais": 51,
-      "phoneNumber": 000000000,
+      "phoneNumber": 942800777,
       "message": "Hola, Me gustaría recibir información del proyecto Anden Uchumayo del terreno {{lote}}, manzana {{manzana}}"
   },
   "scenes": [

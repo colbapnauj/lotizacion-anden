@@ -17,13 +17,26 @@
 
 var DataDB;
 async function loadData() {
-  const res = await fetch(
-    "https://fbase-lienzo-anden-default-rtdb.firebaseio.com/data.json"
+  try {
     
-  );
-  DataDB = await res.json();
-  DataDB.linkHotspots = [];
+    const res = await fetch(
+      "https://fbase-lienzo-anden-default-rtdb.firebaseio.com/data.json"
+      
+      );
+      DataDB = await res.json();
+      DataDB.linkHotspots = [];
+      localStorage.setItem('data_db', JSON.stringify(DataDB));
+    } catch (_) {
+      if (localStorage.getItem("data_db")) {
+        var localData = JSON.parse(localStorage.getItem("data_db"));
+        console.log(localData);
+        DataDB = localData;
+      } else {
+        DataDB = window.APP_DATA;
+      }
+    }
 
+    // TODO Mostrar indicador sobre quién es la fuente de datos (REMOTE, LOCAL O DEFAULT)
   init();
 }
 
@@ -704,18 +717,6 @@ function init() {
   
   // Display the initial scene.
   switchScene(scenes[0]);
-
-  pano.addEventListener("click", function (e) {
-    var view = viewer.view();
-    var loc = view.screenToCoordinates({ x: e.clientX, y: e.clientY });
-    console.log(view.screenToCoordinates({ x: e.clientX, y: e.clientY }));
-    console.log(`"yaw": ${loc.yaw}, "pitch": ${loc.pitch},`);
-    var coord = `"yaw": ${loc.yaw}, "pitch": ${loc.pitch},`;
-    navigator.clipboard.writeText(coord);
-
-    var _fov = viewer._currentScene._view._fov;
-    console.log(_fov);
-  });
 }
 
 loadData();
