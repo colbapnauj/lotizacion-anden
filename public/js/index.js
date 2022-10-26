@@ -332,6 +332,7 @@ function init() {
     let longitudFrente = (hotspot.frente == -1) ? 0 : Math.round(hotspot.frente * 100) / 100;
     
     let perimetro = longitudIzquierda + longitudDerecha + longitudFondo + longitudFrente;
+    perimetro = perimetro.toFixed(2);
 
     switch (hotspot.estado) {
     case "disponible":
