@@ -486,7 +486,7 @@ function init() {
       var area_text = document.createElement("p");
       area_text.classList.add("modal-wrapper_area_detail");
       area_text.classList.add("text-right");
-      area_text.innerHTML = "300.00 m²";
+      area_text.innerHTML = `${hotspot.area} m²`;
       wrapper_area.appendChild(area_title);
       wrapper_area.appendChild(area_text);
 
@@ -498,7 +498,7 @@ function init() {
       perimetro_title.innerHTML = "Perímetro";
       var perimetro_text = document.createElement("p");
       perimetro_text.classList.add("text-right");
-      perimetro_text.innerHTML = "721.72 ml";
+      perimetro_text.innerHTML = `${perimetro} ml`;
       wrapper_perimetro_reservado.appendChild(perimetro_title);
       wrapper_perimetro_reservado.appendChild(perimetro_text);
 
